@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  argocd/app-name: rag-d1744864769393
+  janus-idp.io/tekton: rag-d1744864769393
+  backstage.io/kubernetes-id: rag-d1744864769393
+  backstage.io/kubernetes-namespace: rhdh-app
+  app.kubernetes.io/part-of: rag-d1744864769393
+resources:
+  - initialize-namespace/
+  - deployment-model-server.yaml
+  - service-model-server.yaml
+  - deployment.yaml
+  - route.yaml
+  - service.yaml
+  - model-config.yaml
+  - deployment-database.yaml
+  - service-database.yaml
+  - database-config.yaml
+  - rhoai/

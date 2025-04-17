@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    tad.gitops.set/image: ".spec.template.spec.containers[0].image"
+    tad.gitops.get/image: ".spec.template.spec.containers[0].image"
+    tad.gitops.set/replicas: ".spec.replicas"
+    tad.gitops.get/replicas: ".spec.replicas"
+  labels:
+    app.kubernetes.io/instance: rag-d1744864769393
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: rag-d1744864769393
+    app.kubernetes.io/part-of: rag-d1744864769393
+  name: rag-d1744864769393
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rag-d1744864769393
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: rag-d1744864769393
+    spec:
+      containers:
+        - image: quay.io/redhat-ai-dev/ai-template-bootstrap-app:latest
+          name: app-inference
+          envFrom:
+            - configMapRef:
+                name: rag-d1744864769393-model-config
+            - configMapRef:
+                name: rag-d1744864769393-database-config
+          ports:
+            - containerPort: 8501
+          securityContext:
+            runAsNonRoot: true
